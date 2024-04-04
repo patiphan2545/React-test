@@ -26,24 +26,32 @@ const ContextProvider = ({ children }) => {
     const onSearch = (nameValue, addressValue) => { //เพิ่ม parameter nameValue&addressValue
         console.log(nameValue);
         console.log(addressValue);
-        const results = dataDummy.filter(obj => {
 
-            if (nameValue && addressValue) {
-                return obj.name.toLowerCase().includes(nameValue.toLowerCase()) &&
-                obj.address.toLowerCase().includes(addressValue.toLowerCase()); //ค้นหา name/address พร้อมกัน
-            }
-            else if (nameValue) {
-                return obj.name.toLowerCase().includes(nameValue.toLowerCase()); //ค้นหา name
-            }
-            else if (addressValue) {
-                return obj.address.toLowerCase().includes(addressValue.toLowerCase()); //ค้นหา address 
-            }
-            else {
-                return false;
-            }
-        })
-        console.log(results);
-        setData(results);
+        if (nameValue === '' && addressValue === '') { //ช่อง empty แสดง data ทั้งหมด
+            setData(dataDummy);
+        }
+        else {
+
+            const results = dataDummy.filter(obj => {
+
+                if (nameValue && addressValue) {
+                    return obj.name.toLowerCase().includes(nameValue.toLowerCase()) &&
+                    obj.address.toLowerCase().includes(addressValue.toLowerCase()); //ค้นหา name/address พร้อมกัน
+                }
+                else if (nameValue) {
+                    return obj.name.toLowerCase().includes(nameValue.toLowerCase()); //ค้นหา name
+                }
+                else if (addressValue) {
+                    return obj.address.toLowerCase().includes(addressValue.toLowerCase()); //ค้นหา address 
+                }
+                else {
+                    return false;
+                }
+            })
+            console.log(results);
+            setData(results);
+
+        }
     }
 
     return (
